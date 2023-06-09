@@ -61,9 +61,22 @@ document.querySelector(".js-products").innerHTML = productsHTML;
 document.querySelectorAll(".add-to-cart-button").forEach((btn) => {
   btn.addEventListener("click", () => {
     const productName = btn.dataset;
-    cart.push({
-      productName: productName,
-      quantity: 1,
+
+    let matchingProduct;
+
+    cart.forEach((object) => {
+      if (object.productName === productName) {
+        matchingProduct = object;
+      }
     });
+
+    if (matchingProduct) {
+      matchingProduct.quantity += 1;
+    } else {
+      cart.push({
+        productName: productName,
+        quantity: 1,
+      });
+    }
   });
 });
